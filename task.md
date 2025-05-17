@@ -9,7 +9,7 @@ filmów. Dane zostały stworzone przez użytkowników w okresie 1995-2016.
 Użytkownicy są wybrani w sposób losowy. Każdy użytkownik ocenia co
 najmniej 20 filmów, i ma unikany identyfikator.
 
-3. **Zadanie**:
+2. **Zadanie**:
   - **Przygotowanie danych do analizy**:
      
      Na podstawie **tagów i opisu** filmu tworzyć odpowiedni **zbiór atrybutów** i **zbiór
@@ -21,9 +21,9 @@ decyzyjne, klasyfikator Bayesowski, zespół klasyfikatorów,...) do predykcji
 oceny nowego filmu.
 
       b) Odkrywać **istotne cechy** do oceniania filmu.
-4. **Model uczenia**:
+3. **Model uczenia**:
     - Zbiór uczący: losowo 80% zbioru danych
     - Zbiór testowy: pozostała część.
-5. **Zródło danych**:
+4. **Zródło danych**:
   - Udostępnione w **Datasets**.
   - Więcej informacji: https://grouplens.org/datasets/movielens/latest/
