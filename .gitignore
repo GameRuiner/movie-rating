@@ -174,3 +174,4 @@ cython_debug/
 .pypirc
 
 ml-latest-small*
+*.joblib
