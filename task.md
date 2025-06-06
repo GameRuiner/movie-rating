@@ -4,7 +4,7 @@
 krótkich recenzji (*tagi*) napisanych przez widzów. Informacje te zostały zbierane przez
 portal **MovieLens** – portal do celu rekomendacji filmowej.
   
-  Dane zawierają około100000 ratings i ponad 1000 tagów dla ponad 9000
+  Dane zawierają około 100000 ratings i ponad 1000 tagów dla ponad 9000
 filmów. Dane zostały stworzone przez użytkowników w okresie 1995-2016.
 Użytkownicy są wybrani w sposób losowy. Każdy użytkownik ocenia co
 najmniej 20 filmów, i ma unikany identyfikator.
