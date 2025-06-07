@@ -83,3 +83,71 @@ Do oceny jakości modelu wykorzystano standardowe metryki regresji:
     - Uwzględnienie informacji o użytkownikach (filtry kolaboracyjne).
     - Użycie nowszych modeli, np. XGBoost, LightGBM lub sieci neuronowych.
     - Redukcja liczby cech przy zachowaniu jakości predykcji (np. PCA, selekcja cech).
+
+## Eksperyment z modelem XGBoost i rozszerzonym feature engineering
+
+W ramach rozszerzenia projektu przeprowadzono także eksperyment z użyciem modelu **XGBoost Regressor**. W porównaniu do poprzednio opisanego podejścia, zastosowano tu zmodyfikowany zestaw cech oraz inne techniki oceny skuteczności predykcji.
+
+### Różnice w feature engineering
+
+W modelu XGBoost, oprócz binarnych kolumn gatunków oraz reprezentacji tagów TF-IDF, wykorzystano także:
+
+- `num_genres` – liczbę gatunków przypisanych do filmu,
+- `tag_count` – liczbę tagów powiązanych z filmem,
+- `title_length` – długość tytułu (liczba znaków),
+- `year` – rok produkcji filmu (wyodrębnioną z tytułu).
+- `decade` – dekadę produkcji filmu (wyodrębnioną z roku).
+
+Dzięki temu zbiór cech został wzbogacony o atrybuty ilościowe oraz cechy wyciągnięte w procesie analizy tekstu. Przykładowe rozkłady oraz wpływ tych cech na dane i wynik predykcji pokazują poniższe wykresy:
+
+- Liczba filmów względem liczby przypisanych gatunków:  
+  ![Liczba filmów względem liczby przypisanych gatunków](charts/xgb_genres_per_movie_cnt.png)
+- Liczba filmów w poszczególnych gatunkach:  
+  ![Liczba filmów w danym gatunku](charts/xgb_genres_cnt.png)
+- Średnia ocena filmu względem dekady produkcji:  
+  ![Średnia ocena filmu vs dekada produkcji](charts/xgb_avg_rating_vs_decade.png)
+- Korelacja engineered features z oceną:  
+  ![Korelacja cech z oceną](charts/xgb_corr_matrix_features.png)
+- Korelacja gatunków z oceną:  
+  ![Korelacja genre vs avg_rating](charts/xgb_corr_matrix_rating_vs_genre.png)
+
+### Metody oceny modelu
+
+Model XGBoost oceniono przy użyciu następujących metryk:
+
+- **MSE**
+- **RMSE**
+- **MAE**
+- **R^2**
+
+Zastosowano podział zbioru na część treningową (80%) i testową (20%).
+
+### Wyniki modelu XGBoost
+
+- **MSE:** 0.3301
+- **RMSE:** 0.5745
+- **MAE:** 0.4058
+- **R²:** 0.2539
+
+Histogram rozkładu średnich ocen filmów dla nowego zbioru cech prezentuje poniższy wykres:
+
+![Histogram rozkładu średnich ocen filmów](charts/xgb_dist_of_rating_for_xgb.png)
+
+### Analiza błędów i ważności cech
+
+Zaobserwowano, że średni błąd predykcji modelu zależy od liczby tagów przypisanych do filmu:
+
+![Średni błąd modelu vs liczba tagów](charts/xgb_err_vs_tags_cnt.png)
+
+Ranking najważniejszych cech dla modelu XGBoost przedstawiono poniżej:
+
+![Top 20 najważniejszych cech](charts/xgb_feature_importance.png)
+
+### Podsumowanie różnic względem podejścia bazowego
+
+- Zastosowanie modelu XGBoost pozwoliło na uwzględnienie nieliniowych zależności pomiędzy cechami a oceną filmu.
+- W porównaniu do poprzedniego pipeline'u, poprawiono dokładność predykcji (spadek RMSE).
+- Rozbudowana analiza korelacji i ranking ważności cech wskazują, które cechy mają największy wpływ na końcowy wynik modelu.
+
+Wszystkie powyższe wykresy znajdują się w folderze `charts/` repozytorium.
+
