@@ -1,4 +1,41 @@
-# 🎬 Raport z eksperymentu: Predykcja ocen filmów na podstawie tagów i gatunków
+---
+title: "Predykcja ocen filmów na podstawie tagów i gatunków"
+author: "Marko Golovk, nr albumu: s31056, grupa: 11c\nMateusz Durak, nr albumu: s21415, grupa: 11c\nArkadiusz Stryjewski,nr albumu: s32415, grupa: 11c"
+date: "Czerwiec 2025"
+---
+
+# Strona tytułowa
+
+**Tytuł projektu:**  
+**🎬 Predykcja ocen filmów na podstawie tagów i gatunków**
+
+
+**Uczestnicy projektu:**  
+- **Marko Golovko** – nr albumu: s31056 – grupa: 11c  
+- **Mateusz Durak** – nr albumu: s21415 – grupa: 11c
+- **Arkadiusz Stryjewski** - nr albumu: s32415 – grupa: 11c
+
+**Podział pracy:**  
+- Marko Golovko: Przygotowanie danych, trenowanie modelu Random Forest, raport końcowy
+- Mateusz Durak: Trenowanie modelu XGBoost, ewaluacja modelu
+- Arkadiusz Stryjewski: Integracja z PySpark, obliczenia TF-IDF
+
+**Repozytorium projektu:**  
+[https://github.com/GameRuiner/movie-rating](https://github.com/GameRuiner/movie-rating)
+
+---
+
+# Spis treści
+
+1. Wstęp i cel badania
+2. Opis danych  
+3. Metodologia i rozwiązanie  
+4. Metoda oceny jakości modelu
+5. Wyniki eksperymentalne
+6. Podsumowanie i wnioski 
+7. Eksperyment z modelem XGBoost i rozszerzonym feature engineering
+
+---
 
 ## 1. Wstęp i cel badania
 
