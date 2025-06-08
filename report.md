@@ -33,10 +33,27 @@ Wykorzystano [MovieLens Latest Datasets](https://grouplens.org/datasets/movielen
 
 ## 3. Metodologia i rozwiązanie
 
-1.	**Przygotowanie danych:**
-- Wydzielono gatunki filmowe jako cechy binarne (get_dummies).
-- Zgrupowano tagi dla każdego filmu i przetworzono je za pomocą TF-IDF (300 najczęstszych słów).
-- Połączono cechy w jedną ramkę danych final_df.
+1. **Przygotowanie danych:**
+-	**Pobranie i rozpakowanie danych:** Automatyczne pobranie zbioru MovieLens ze strony GroupLens i rozpakowanie pliku ZIP.
+
+- **Wczytanie danych z użyciem PySparka:**
+Do wczytania plików movies.csv oraz tags.csv wykorzystano PySpark (SparkSession), który umożliwia przetwarzanie danych w rozproszony sposób. Dzięki temu rozwiązaniu kod może skalować się do większych zbiorów danych i być uruchamiany na klastry Spark.
+Przykładowo, dane z pliku tags.csv zostały zgrupowane z użyciem PySpark:
+
+```python
+tags_spark.groupBy("movieId").agg(concat_ws(" ", collect_list("tag")).alias("tag"))
+```
+
+To pozwoliło na efektywne połączenie tagów w jedną kolumnę tekstową dla każdego filmu.
+
+- **Przetwarzanie gatunków filmowych (pandas):**
+Kolumna genres została przekształcona do postaci binarnej (one-hot encoding) za pomocą funkcji get_dummies, co pozwoliło reprezentować każdy gatunek jako oddzielną cechę.
+
+- **Tworzenie reprezentacji tekstowej tagów:**
+Po połączeniu tagów, tekst został przekształcony do wektorów cech za pomocą *TfidfVectorizer* z biblioteki *scikit-learn*, ograniczając liczbę cech do 300 najczęstszych słów (ignorując tzw. stop words w języku angielskim).
+
+- **Utworzenie końcowej ramki danych:**
+Wszystkie cechy (ID filmu, tytuł, gatunki, tagi TF-IDF) zostały połączone w jeden zbiór danych final_df, który następnie zapisano do pliku CSV movies_with_tags_features.csv.
 
 2. **Budowa zbioru uczącego:**
 - Połączono oceny użytkowników z cechami filmów.

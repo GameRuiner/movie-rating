@@ -3,10 +3,13 @@ import zipfile
 import requests
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import collect_list, concat_ws
 
 URL = "https://files.grouplens.org/datasets/movielens/ml-latest-small.zip"
 ZIP_FILE = "ml-latest-small.zip"
 EXTRACT_DIR = "ml-latest-small"
+spark = SparkSession.builder.appName("MovieLensPreprocessing").getOrCreate()
 
 if not os.path.exists(ZIP_FILE):
     print("🔽 Pobieranie danych MovieLens...")
@@ -22,15 +25,17 @@ if not os.path.exists(EXTRACT_DIR):
     print("✅ Rozpakowano do katalogu:", EXTRACT_DIR)
 
 print("📚 Wczytywanie danych CSV...")
-movies = pd.read_csv(os.path.join(EXTRACT_DIR, "movies.csv"))
-tags = pd.read_csv(os.path.join(EXTRACT_DIR, "tags.csv"))
+movies_spark = spark.read.csv(os.path.join(EXTRACT_DIR, "movies.csv"), header=True, inferSchema=True)
+movies = movies_spark.toPandas()
+tags_spark = spark.read.csv(os.path.join(EXTRACT_DIR, "tags.csv"), header=True, inferSchema=True)
 
 print("🎭 Przetwarzanie gatunków...")
 genres = movies["genres"].str.get_dummies(sep="|")
 movies = pd.concat([movies[["movieId", "title"]], genres], axis=1)
 
 print("🔖 Łączenie tagów...")
-tags_grouped = tags.groupby("movieId")["tag"].apply(lambda x: " ".join(x)).reset_index()
+tags_spark_grouped = tags_spark.groupBy("movieId").agg(concat_ws(" ", collect_list("tag")).alias("tag"))
+tags_grouped = tags_spark_grouped.toPandas()
 movies = pd.merge(movies, tags_grouped, on="movieId", how="left")
 movies["tag"] = movies["tag"].fillna("")
 
