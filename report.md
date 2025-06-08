@@ -1,6 +1,6 @@
 ---
 title: "Predykcja ocen filmów na podstawie tagów i gatunków"
-author: "Marko Golovk, nr albumu: s31056, grupa: 11c\nMateusz Durak, nr albumu: s21415, grupa: 11c\nArkadiusz Stryjewski,nr albumu: s32415, grupa: 11c"
+author: "Marko Golovko, nr albumu: s31056, grupa: 11c\nMateusz Durak, nr albumu: s21415, grupa: 11c\nArkadiusz Stryjewski,nr albumu: s32415, grupa: 11c"
 date: "Czerwiec 2025"
 ---
 
