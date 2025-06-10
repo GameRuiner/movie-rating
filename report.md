@@ -205,3 +205,20 @@ Ranking najważniejszych cech dla modelu XGBoost przedstawiono poniżej:
 
 Wszystkie powyższe wykresy znajdują się w folderze `charts/` repozytorium.
 
+### 🔄 PySpark + XGBoost
+
+> Model trenowany w klastrze Spark na **pełnym** zbiorze.  
+> Aby zmieścić wiele surowych cech w pamięci, zastosowano w dwóch przypadkach PCA - dla genomu tagów oraz tagów nadanych przez użytkowników – w zestawieniu ważności cech dominują czynniki PCA dla genomów tagów.
+| Model / cechy                           | **R²** | **RMSE** | **MAE** | **MAPE** |
+|-----------------------------------------|:------:|:--------:|:-------:|:--------:|
+| XGBoost (sklearn)                  | **0.254** | **0.575** | **0.406** |     –    |
+| **PySpark + XGBoost (hist) + PCA 50**   | **0.150** | 0.986 | 0.743 | 35.4 % |
+
+* **Jakość predykcji**: przy pełnym zbiorze i PCA wynik zbliżony do lasu losowego – R² ≈ 0.15, RMSE ≈ 1 klasa; nadal słabszy niż gęsty XGBoost z wcześniejszego eksperymentu.  
+* **Skalowalność**: klaster Spark (96 workerów, `tree_method="hist"`) pozwolił trenować bez próbkowania.  
+* **Ważność cech**: pierwszy komponent (`pc_1`) zbiera większość zysku podziałów; pojedyncze oryginalne gatunki (np. **Horror**) wciąż wnoszą mierzalny wkład.
+
+![TOP 15 feature importance (gain)](charts/pyspark_xgb_feature_importance.png)
+
+> **Wniosek**  
+> Intensywne stosowanie PCA rzeczywiście umożliwia trening na znacznie większych zbiorach danych w rozproszeniu, ale dużym kosztem dokładności. Niemniej jednak może to podnieść umiejętność generalizacji predyktora na nowe przypadki.
