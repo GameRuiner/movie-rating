@@ -208,7 +208,7 @@ Wszystkie powyższe wykresy znajdują się w folderze `charts/` repozytorium.
 ### 🔄 PySpark + XGBoost
 
 Model trenowany w klastrze Spark na **pełnym** zbiorze.  
-Aby zmieścić wiele surowych cech w pamięci, zastosowano w dwóch przypadkach PCA - dla genomu tagów oraz tagów nadanych przez użytkowników – w zestawieniu ważności cech dominują czynniki PCA dla genomów tagów.
+Aby zmieścić wiele surowych cech w pamięci, zastosowano w dwóch przypadkach PCA - dla genomu tagów (pc_) oraz tagów nadanych przez użytkowników (pca_) – w zestawieniu ważności cech dominują czynniki PCA dla genomów tagów.
 
 **XGBoost (sklearn)**
 
