@@ -229,5 +229,5 @@ MAPE = 35.4 %
 * **Skalowalność**: klaster Spark (96 workerów, `tree_method="hist"`) pozwolił trenować bez próbkowania.  
 * **Ważność cech**: pierwszy komponent (`pc_1`) zbiera większość zysku podziałów; pojedyncze oryginalne gatunki (np. **Horror**) wciąż wnoszą mierzalny wkład.
 
-> **Wniosek**  
-> Intensywne stosowanie PCA rzeczywiście umożliwia trening na znacznie większych zbiorach danych w rozproszeniu, ale dużym kosztem dokładności. Niemniej jednak może to podnieść umiejętność generalizacji predyktora na nowe przypadki.
+**Wniosek**  
+Intensywne stosowanie PCA rzeczywiście umożliwia trening na znacznie większych zbiorach danych w rozproszeniu, ale dużym kosztem dokładności. Niemniej jednak może to podnieść umiejętność generalizacji predyktora na nowe przypadki.
